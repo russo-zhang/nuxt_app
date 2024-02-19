@@ -26,8 +26,21 @@
 
 <script lang="ts" setup>
 import { useHome } from "~/hooks/home";
-const { hotspotListMap } = await useHome();
-const { baidu, zhihu } = hotspotListMap;
+import type { HotspotMapItem } from "~/hooks/home";
+const baidu = ref<HotspotMapItem>({
+    title: "百度热搜",
+    data: [],
+});
+const zhihu = ref<HotspotMapItem>({
+    title: "知乎热搜",
+    data: [],
+});
+if (process.server) {
+    const { hotspotListMap } = await useHome();
+    const { baidu: _baidu, zhihu: _zhihu } = hotspotListMap;
+    baidu.value = _baidu;
+    zhihu.value = _zhihu;
+}
 </script>
 
 <style>
