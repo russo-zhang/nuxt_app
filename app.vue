@@ -1,7 +1,38 @@
 <template>
-  <div>
-    <!-- <NuxtWelcome /> -->
-    <h1>hello world</h1>
-    <h2> website for test.</h2>
-  </div>
+    <div class="home">
+        <!-- <NuxtWelcome /> -->
+        <h1>hello world</h1>
+        <h2>website for test.</h2>
+        <ul v-if="baidu.data && baidu.data.length > 0">
+            <template v-for="(item, index) in baidu.data" :key="index">
+                <li>
+                    <span>{{ item.title }}</span
+                    >&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>{{ item.summary }}</span>
+                </li>
+            </template>
+        </ul>
+        <ul v-if="zhihu.data && zhihu.data.length > 0">
+            <template v-for="(item, index) in zhihu.data" :key="index">
+                <li>
+                    <span>{{ item.title }}</span
+                    >&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>{{ item.summary }}</span>
+                </li>
+            </template>
+        </ul>
+    </div>
 </template>
+
+<script lang="ts" setup>
+import { useHome } from "~/hooks/home";
+const { hotspotListMap } = await useHome();
+const { baidu, zhihu } = hotspotListMap;
+</script>
+
+<style>
+.home {
+    width: 1200px;
+    margin: 0 auto;
+}
+</style>
