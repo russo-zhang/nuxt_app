@@ -1,6 +1,6 @@
 <template>
     <div class="rent">
-        <h1>房屋租赁价值计算</h1>
+        <!-- <h1>房屋租赁价值计算</h1> -->
         <client-only>
             <el-form label-position="top" label-width="auto" :model="formData" style="max-width: 600px">
                 <el-form-item label="房屋出售价">
@@ -104,8 +104,18 @@ watch(
 );
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .rent {
     padding: 30px 20px;
+    .el-input-number {
+        .el-input-number__decrease,
+        .el-input-number__increase {
+            width: 100px;
+        }
+        .el-input__wrapper {
+            padding-left: 110px !important;
+            padding-right: 110px !important;
+        }
+    }
 }
 </style>
