@@ -1,6 +1,6 @@
 <template>
     <div class="rent">
-        <!-- <h1>房屋租赁价值计算</h1> -->
+        <h1>房屋租赁价值计算</h1>
         <client-only>
             <el-form label-position="top" label-width="auto" :model="formData" style="max-width: 600px">
                 <el-form-item label="房屋出售价">
@@ -58,6 +58,10 @@
     </div>
 </template>
 <script lang="ts" setup>
+useHead({
+    title: "房屋租赁价值计算",
+});
+// 设置页面标题
 const formData = reactive({
     saleAmount: 600000, // 房屋出售价
     feeAmount: 0, // 杂费（中介费等）
