@@ -31,7 +31,10 @@ useHead({
         { name: "twitter:card", content: "summary_large_image" },
         { property: "og:title", content: t("share_title") },
         { property: "og:description", content: t("share_description") },
-        { property: "og:image", content: `${domain}${useAssetsImage(`images/result/${locale.value}/${route.params.query}.png`)}` },
+        {
+            property: "og:image",
+            content: `${domain}${useAssetsImage(`images/result/${locale.value}/${route.params.query}.png`)}`,
+        },
         { property: "og:url", content: shareUrl },
         // { property: "og:type", content: "article" },
     ],
@@ -44,7 +47,7 @@ const openShareWindow = (url: string) => {
     window.open(url, "_blank", "width=550,height=420");
 };
 const twitterShare = () => {
-    const text = "This is share text example";
+    const text = `当前分享页面的语言是${locale.value}，所获得的结果是${route.params.query}。`;
     const via = "Your Twitter username example";
     const hashtags = "hashtags example";
     const intentUrl =
