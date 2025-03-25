@@ -48,7 +48,7 @@ const openShareWindow = (url: string) => {
 };
 const twitterShare = () => {
     const text = `当前分享页面的语言是${locale.value}，所获得的结果是${route.params.query}。`;
-    const via = "Your Twitter username example";
+    const via = "RiichiCity_JP";
     const hashtags = "hashtags example";
     const intentUrl =
         "https://twitter.com/intent/tweet?text=" +
