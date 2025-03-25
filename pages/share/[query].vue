@@ -19,9 +19,9 @@ const { useAssetsImage } = useAssets();
 const { t, locale } = useI18n();
 const route = useRoute();
 const getPath = () => {
-    return locale.value === "en" ? "" : locale.value;
+    return locale.value === "en" ? "" : `/${locale.value}`;
 };
-const shareUrl = `https://shijilu.online/${getPath()}/share/${route.params.query}`;
+const shareUrl = `https://shijilu.online${getPath()}/share/${route.params.query}`;
 useHead({
     title: t("share_title"),
     meta: [
@@ -31,6 +31,8 @@ useHead({
         { name: "og:description", content: t("share_description") },
         { name: "og:image", content: `${useAssetsImage(`images/result/${locale.value}/${route.params.query}.png`)}` },
         { name: "og:url", content: shareUrl },
+        { name: "twitter:card", content: "summary_large_image" },
+        // { name: "og:type", content: "article" },
     ],
 });
 onMounted(() => {
