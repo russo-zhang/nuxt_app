@@ -28,12 +28,12 @@ useHead({
     meta: [
         { name: "description", content: t("share_description") },
         { name: "keywords", content: t("share_keywords") },
-        { name: "og:title", content: t("share_title") },
-        { name: "og:description", content: t("share_description") },
-        { name: "og:image", content: `${domain}${useAssetsImage(`images/result/${locale.value}/${route.params.query}.png`)}` },
-        { name: "og:url", content: shareUrl },
         { name: "twitter:card", content: "summary_large_image" },
-        // { name: "og:type", content: "article" },
+        { property: "og:title", content: t("share_title") },
+        { property: "og:description", content: t("share_description") },
+        { property: "og:image", content: `${domain}${useAssetsImage(`images/result/${locale.value}/${route.params.query}.png`)}` },
+        { property: "og:url", content: shareUrl },
+        // { property: "og:type", content: "article" },
     ],
 });
 onMounted(() => {
