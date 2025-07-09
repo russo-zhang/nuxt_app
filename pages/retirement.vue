@@ -13,7 +13,9 @@
                         placeholder="请输入现有存款"
                         style="margin-right: 20px"
                     />
-                    <el-tag v-show="currentSavingWang > 1" style="height: 32px">{{ currentSavingWang }}万</el-tag>
+                    <el-tag v-show="currentSavingWang < -1 || currentSavingWang > 1" style="height: 32px"
+                        >{{ currentSavingWang }}万</el-tag
+                    >
                 </div>
             </el-form-item>
             <el-form-item label="税后工资">
