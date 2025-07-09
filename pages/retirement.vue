@@ -1,7 +1,7 @@
 <template>
     <div class="retirement">
         <h1>Retirement Plan</h1>
-        <el-form :model="form" ref="formRef" label-width="100px" class="ratio-form">
+        <el-form :model="form" ref="formRef" label-width="120px" class="ratio-form">
             <el-form-item label="现有存款">
                 <div style="display: flex">
                     <el-input-number
@@ -17,7 +17,7 @@
             <el-form-item label="每月存款">
                 <el-input-number v-model="form.monthlySaving" placeholder="请输入每月存款" type="number" />
             </el-form-item>
-            <el-form-item label="年化收益(%)">
+            <el-form-item label="理财年化收益(%)">
                 <el-input-number v-model="form.annualReturn" placeholder="请输入年化收益" type="number" />
             </el-form-item>
             <el-form-item label="月支出">
@@ -30,7 +30,8 @@
         <div v-if="result.totalNeeded > 0" class="result-block">
             <el-divider>计算结果</el-divider>
             <div>
-                覆盖月支出所需总存款：<b>{{ result.totalNeeded.toLocaleString() }}</b> 元
+                覆盖月支出所需总存款：<b>{{ result.totalNeeded.toLocaleString() }}</b> 元 （约
+                <b>{{ (result.totalNeeded / 10000).toFixed(0) }}</b> 万）
             </div>
             <div>
                 剩余工作时间：<b>{{ result.monthsLeft }}</b> 个月（约 <b>{{ result.yearsLeft }}</b> 年）
@@ -74,8 +75,8 @@ const result = computed(() => {
             daysLeft: 0,
             daysDetail: { years: 0, months: 0, days: 0 },
         };
-    // 假设安全退休金额 = 月支出 * 12 * 25（4%法则）
-    const totalNeeded = Math.round(monthlyExpense * 12 * 25);
+    // 假设安全退休金额 = 月支出 * 12
+    const totalNeeded = Math.round(((monthlyExpense * 12) / annualReturn) * 100);
     // 计算每月收益率
     const monthlyRate = annualReturn > 0 ? Math.pow(1 + annualReturn / 100, 1 / 12) - 1 : 0;
     // 复利计算达到目标金额所需月数
@@ -107,7 +108,7 @@ function resetForm() {
 
 <style lang="less" scoped>
 .retirement {
-    max-width: 400px;
+    max-width: 500px;
     margin: 40px auto;
     padding: 0 20px;
     .ratio-form {
