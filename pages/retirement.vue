@@ -60,7 +60,7 @@
 import { ref, computed, watch } from "vue";
 
 const form = ref({
-    currentSaving: 1000000,
+    currentSaving: 100000,
     monthlyEarning: 10000,
     annualReturn: 5,
     monthlyExpense: 6000,
