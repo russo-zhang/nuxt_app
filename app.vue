@@ -5,6 +5,9 @@
                 <nuxt-link to="/">home</nuxt-link>
                 <nuxt-link to="/device">device</nuxt-link>
                 <nuxt-link to="/rent">rent</nuxt-link>
+                <nuxt-link to="/device">device</nuxt-link>
+                <nuxt-link to="/ratio">ratio</nuxt-link>
+                <nuxt-link to="/retirement">retirement</nuxt-link>
             </nav>
             <el-dropdown @command="selectLang">
                 <span class="el-dropdown-link">
@@ -44,7 +47,12 @@ const selectLang = (lang: string | any) => {
     box-sizing: border-box;
     list-style: none;
 }
+html,
+body {
+    width: 100vw;
+}
 .app {
+    width: 100%;
     .el-header {
         display: flex;
         justify-content: space-between;
