@@ -9,7 +9,6 @@
                 <div style="display: flex">
                     <el-input-number
                         v-model="form.currentSaving"
-                        :min="0"
                         :step="10000"
                         placeholder="请输入现有存款"
                         style="margin-right: 20px"
@@ -58,14 +57,18 @@
                 <b>{{ formatMoney(result.totalNeeded / 10000) }}</b> 万）
             </div>
             <div>
+                还需资金：<b>{{ formatMoney(needTotalMoney) }}</b> 元 （约
+                <b>{{ formatMoney(needTotalMoney / 10000) }}</b> 万）
+            </div>
+
+            <div>
                 本年度年化收益：<b>{{ formatMoney(annualReturnMoney) }} 元</b>
             </div>
             <div>
-                剩余工作时间：<b>{{ formatMoney(result.monthsLeft) }}</b> 个月（约 <b>{{ result.yearsLeft }}</b> 年）
+                剩余工作时间：<b>{{ result.monthsLeft }}</b> 个月（约 <b>{{ result.yearsLeft }}</b> 年）
             </div>
             <div>
                 倒计时：<b>{{ result.daysDetail.years }}</b> 年 <b>{{ result.daysDetail.months }}</b> 月
-                <b>{{ result.daysDetail.days }}</b> 天
             </div>
         </div>
     </div>
@@ -96,6 +99,10 @@ const annualReturnMoney = computed(() => {
 const monthlyInterest = computed(() => {
     return Number(annualReturnMoney.value) ? Number(annualReturnMoney.value) / 12 : 0;
 });
+// 还需资金计算
+const needTotalMoney = computed(() => {
+    return result.value.totalNeeded - form.value.currentSaving;
+});
 
 const result = computed(() => {
     const { currentSaving, monthlyEarning, annualReturn, monthlyExpense } = form.value;
@@ -123,15 +130,15 @@ const result = computed(() => {
     let months = 0;
     let saving = currentSaving;
     while (saving < totalNeeded && months < 1000 * 12) {
-        saving = saving * (1 + monthlyRate) + monthlyEarning;
+        saving = saving * (1 + monthlyRate) + (monthlyEarning - monthlyExpense);
         months++;
     }
     const yearsLeft = (months / 12).toFixed(1);
     const daysLeft = months * 30;
     // 拆分为年、月、天
-    const years = Math.floor(daysLeft / 365);
-    const monthsRemain = Math.floor((daysLeft % 365) / 30);
-    const daysRemain = Math.floor((daysLeft % 365) % 30);
+    const years = Math.floor(months / 12);
+    const monthsRemain = months % 12;
+    const daysRemain = 0; // 忽略天数
     return {
         totalNeeded,
         monthsLeft: months,
